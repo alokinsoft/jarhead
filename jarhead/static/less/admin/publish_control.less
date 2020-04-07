@@ -1,0 +1,62 @@
+
+body.change-form {
+    .calendarbox {
+        margin-left: -94px;
+        margin-top: 101px;
+        width: 198px;
+    }
+    .clockbox {
+        margin-left: -94px;
+        margin-top: 56px;
+    }
+    #content-main {
+        position: relative;
+        .field-is_active, .field-status, .field-published_date {
+            display: none;
+        }
+        .publishing_controls {
+            position: absolute;
+            width: 200px;
+            right: -1px;
+            top:-36px;
+            background-color: #ccc;
+            border-left: 1px solid #EEEEEE;
+            border-right: 1px solid #EEEEEE;
+            .item {
+                float: left;
+                line-height: 20px;
+                padding: 8px 8px 7px;
+                &.right {
+                    float: right;
+                }
+                &.pub_date_time {
+                    padding-top: 0px;
+                    display: none;
+                    &.show {
+                        display: block;
+                    }
+                }
+                .pub_date, .pub_time {
+                    float: left;
+                    width: 47%;
+                    line-height: 12px;
+                    &.pub_time {
+                        margin-left: 10px;
+                    }
+                    label {
+                        display: block;
+                    }
+                    input {
+                        width: 90%;
+                    }
+                    .datetimeshortcuts {
+                        color: #ccc;
+                    }
+                    #calendarlink0, #clocklink0 {
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+}

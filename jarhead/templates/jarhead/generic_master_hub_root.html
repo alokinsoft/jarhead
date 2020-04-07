@@ -1,0 +1,34 @@
+{% extends "sa/base.html" %}
+{% load structural %}
+{% load htmlhelpers %}
+{% block body_class %}hub{% endblock body_class %}
+
+{% block content %}
+
+        <section class="block sf-admin">
+            <div>
+                <h2>StorageFront.com</h2>
+                <ul>
+                </ul>
+                <a class="goto-sf" href="http://www.storagefront.com/ownerlogin/">Go to Admin</a>
+            </div>
+        </section>
+
+
+        {% render_blocks hub %}
+            <li>
+                <a {% attr 'href' nav_item.url %}>{{nav_item.label}}</a>
+            </li>
+        {% enter_submenu %}
+            <section class="block">
+                <div>
+                    <h2>{{nav_item.label}}</h2>
+                    <ul>
+        {% end_submenu %}
+                    </ul>
+                </div>
+            </section>
+        {% endrender_blocks %}
+
+
+{% endblock content %}

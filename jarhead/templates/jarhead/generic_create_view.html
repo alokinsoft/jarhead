@@ -1,0 +1,21 @@
+{% extends "sa/base.html" %}
+{% load structural %}
+{% load htmlhelpers %}
+{% load crispy_forms_tags %}
+
+{% block controller %}
+    <script type="text/javascript">
+        var ui = new FormController({
+            content_css: media_url('rich_content.css')
+        });
+    </script>
+{% endblock %}
+            
+
+
+{% block body_class %}create_view{% endblock body_class %}
+{% block page_title %}{{view.parent.name}}{% endblock page_title %}
+
+{% block content %}
+    {% crispy form %}
+{% endblock %}

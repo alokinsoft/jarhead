@@ -1,0 +1,86 @@
+{% extends "sa/base.html" %}
+{% load structural %}
+{% load htmlhelpers %}
+
+{% block body_class %}changelist{% endblock body_class %}
+
+{% block page_title %}{{view.parent.name}}{% endblock page_title %}
+
+{% block content %}
+    {% if view.has_create_view %}<a class="add_more" {% attr 'href' view.get_create_url %}>Add</a>{% endif %}
+
+    {% comment %}
+    <ul>
+        {% for object in page_items %}
+            <li class="object_item">
+                {% with item=object.item %}
+                    {{item}} - <a {% attr 'href' object.update_url %}>Manage</a>
+                {% endwith %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endcomment %}
+
+    {% if view.list_style != "media_box" %}
+        <table class="changelist_wrapper">
+            <thead>
+                <tr>
+                    {% for label in view.field_labels %}
+                        <th>{{label}}</th>
+                    {% endfor %}
+                    <th class="empty"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for object in page_items %}
+                    {% with item=object.item %}
+                        <tr>
+                            {% for value in object.field_values %}
+                                <td>{{value}}</td>
+                            {% endfor %}
+                            {% comment %}
+                            <td>
+                                <div class="actionButtons">
+                                    <button type="submit" class="edit" title="edit"></button>
+                                    <button type="submit" class="delete" title="delete"></button>
+                                </div>
+                            </td>
+                            {% endcomment %}
+                            <td><a {% attr 'href' object.update_url %}>Manage</a></td>
+                        </tr>
+                    {% endwith %}
+                {% empty %}
+                    <tr><td colspan="all">No objects available</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <table class="changelist_wrapper media_box">
+            <tbody>
+                {% for object in page_items %}
+                    {% with item=object.item %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <img src="{{object.mediabox_image}}">
+                                    <div>
+                                        <h2>{{object.mediabox_title}}</h2>
+                                        <span>{{object.mediabox_description}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            {% for value in object.field_values %}
+                                <td>{{value}}</td>
+                            {% endfor %}
+                            <td><a {% attr 'href' object.update_url %}>Manage</a></td>
+                        </tr>
+                    {% endwith %}
+                {% empty %}
+                    <tr><td colspan="all">No objects available</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

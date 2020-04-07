@@ -1,0 +1,553 @@
+@import "flexbox.less";
+@import "pure.less";
+
+
+* {
+    font-family: "Gotham", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+}
+
+
+@normal-text-color: #9b9b9b;
+@header-text-color: #666;
+@highlight-text-color: #53AB29;
+@rule-color: rgb(223, 223, 223);
+
+
+//z-index levels
+@level_navigation: 1000;
+@level_fullscreen_richtext: 1001;
+
+// container for the admin UI
+body {
+    .flex;
+    .flex-display;
+    .flex-direction(row);
+    .flex-wrap(nowrap);
+    .justify-content(flex-start);
+    .align-content(stretch);
+    .box-align(stretch);
+    .align-items(flex-start);
+    min-height: 100vh;
+    background-color: #f2f2f4;
+
+    & > nav {
+        .flex-order(0);
+        .flex(0 1 auto);
+        .align-self(stretch);
+        min-width: 230px;
+    }
+
+    & > main {
+        .flex-order(0);
+        .flex(0 10 100%);
+        .align-self(stretch);
+        max-width: 830px;
+        min-width: 830px;
+        padding: 30px 40px;
+    }
+
+}
+
+
+
+// Overall Structure of the Main Nav
+// nav -> sections -> a (for each link)
+// each link can also have a subnav
+// specials include:
+// - site logo
+// - facilities direct link
+// - facility mediabox within facility hubs
+// there's also a floating submenu
+
+nav {
+    padding-top: 36px;
+    font-size: 14px;
+    border-right: 1px solid @rule-color;
+    background-color: #fff;
+    box-shadow: 4px 0px 11px rgb(213, 213, 215);
+    z-index: @level_navigation;
+    section.brand {
+        // container for the logo
+        padding-left: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid @rule-color;
+        .logo {
+            display: inline-block;
+            margin-right: 4px;
+            overflow: hidden;
+            vertical-align: middle;
+            font-size: 28px;
+            line-height: 20px;
+            color: @highlight-text-color;
+        }
+        .text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 24px;
+            line-height: 20px;
+            color: @header-text-color;
+        }
+    }
+
+    section.nav {
+        padding-top: 14px;
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-transform: uppercase;
+            li {
+                position: relative;
+                .item {
+                    padding: 10px 30px;
+                    a {
+                        cursor: pointer;
+                        text-decoration: none;
+                        color: @normal-text-color;
+                        &.active, &:hover {
+                            color: @highlight-text-color;
+                        }
+                    }
+                }
+                &.open {
+                    &:before {
+                        content: '\e86b';
+                        font-family: "fontello";
+                        position: absolute;
+                        right: 16px;
+                        font-size: 14px;
+                        line-height: 2.5em;
+                        color: @highlight-text-color;
+                    }
+                }
+            }
+            section {
+                display: none;
+                position: absolute;
+                left: 231px;
+                top: -14px;
+                width: 230px;
+                padding: 14px 0px;
+                background-color: #fff;
+                box-shadow: 4px 0px 11px rgb(213, 213, 215);
+                z-index: 1;
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+// Page Header
+main > header {
+    .pure-g;
+    .title {
+        .pure-u-1-2;
+        line-height: 2.8em;
+        h1 {
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            color: @highlight-text-color;
+            font-size: 25px;
+        }
+    }
+    .user {
+        .pure-u-1-2;
+        line-height: 2.8em;
+        vertical-align: bottom;
+        text-align: right;
+        .name {
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+            color: @header-text-color;
+        }
+        i {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 40px;
+            color: @header-text-color;
+        }
+    }
+}
+
+
+//Content area
+main > .content {
+    margin-top: 22px;
+}
+
+// css3 animation
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    background: rgba(83,173,41,.5);
+    transform: scale(1);
+  }
+}
+
+
+
+// Hub pages
+body.hub > main {
+    .content {
+        .flex;
+        .flex-display;
+        .flex-direction(row);
+        .flex-wrap(wrap);
+        .justify-content(space-between);
+        .align-content(stretch);
+        .box-align(stretch);
+        .align-items(flex-start);
+        .block {
+            //structure of a block is
+            // div - container
+            // > h2 - heading
+            // > ul/li - list of links
+            .flex-order(0);
+            .flex(0 1 auto);
+            .align-self(stretch);
+            width: 260px;
+            box-sizing: border-box;
+            margin-bottom: 22px;
+
+            & > div {
+                height: 100%;
+                // margin-right: 20px;
+                padding: 20px 26px;
+                background: #fff;
+                position: relative;
+            }
+            h2 {
+                margin-top: 0px;
+                font-weight: bold;
+                font-size: 20px;
+                color: @highlight-text-color;
+            }
+
+            ul {
+                padding: 0;
+                list-style-position: inside;
+                list-style-type: none;
+                li {
+                    margin-bottom: 12px;
+                }
+            }
+
+            a {
+                text-decoration: none;
+                color: @normal-text-color;
+                &:hover {
+                    color: @highlight-text-color;
+                }
+                &.goto-sf {
+                    padding: 20px 0;
+                    background-color: @highlight-text-color;
+                    display: block;
+                    border-radius: 6px;
+                    text-align: center;
+                    color: #fff;
+                    position: absolute;
+                    bottom: 20px;
+                    width: 80%;
+                }
+            }
+
+        }
+
+        .block.sf-admin {
+            //TODO: styles for the hardcoded block
+        }
+
+
+    }
+}
+
+
+
+
+// Changelist styling goes here
+body.changelist > main {
+    .content {
+        background-color: #fff;
+        padding: 19px 8px;
+        a.add_more {
+            text-decoration: none;
+            font-family: 'Gotham';
+            font-weight: 500;
+            color: #53ad29;
+            line-height: 22px;
+            font-size: 18px;
+            display: block;
+            position: relative;
+            padding: 10px;
+            &:after {
+                content: "\e864";
+                font-family: 'fontello';
+                position: absolute;
+                right: 8px;
+                border-radius: 100%;
+                padding: 7px 9px;
+                margin-top: -7px;
+                background-color: transparent;
+            }
+            &:hover {
+                &:after {
+                    margin-top: -7px;
+                    border-radius: 100%;
+                    padding: 7px 9px;
+                    animation: ripple .5s ease-out;
+                }
+            }
+        }
+        ul {
+            padding:11px 0;
+            margin: 0;
+            li {
+                list-style: none;
+                padding: 16px 20px;
+                font-family: 'Gotham';
+                font-weight: normal;
+                font-size: 14px;
+                color: #4a4a4a;
+                position: relative;
+                &:nth-child(even) {
+                    background-color: #EEE;
+                }
+                a {
+                    text-decoration: none;
+                    padding: 6px 17px;
+                    background-color: #53ad29;
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    webkit-transform: translateY(-50%);
+                    border-radius: 3px;
+                    color: #fff;
+                }
+            }
+        }
+        table {
+            &.changelist_wrapper {
+                width: 100%;
+                margin-bottom: 20px;
+                thead {
+                    text-align: left;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    background-color: #9B9B9B;
+                    padding: 19px 13px;
+                    tr {
+                        th {
+                            text-transform: uppercase;
+                            font-size: 14px;
+                            font-weight: normal;
+                            padding: 14px 16px;
+                            color: #fff;
+                            table-layout: fixed;
+                            width: 390px;
+                        }
+                    }
+                }
+                tbody {
+                    tr {
+                        td {
+                            padding: 13px 16px;
+                            font-size: 14px;
+                            font-weight: normal;
+                            color: #4a4a4a;
+                            line-height: 17px;
+                            position: relative;
+                            max-height: 17px;
+                            overflow: hidden;
+                            &:first-child {
+                                width: 55%;
+                            }
+                            &:last-child {
+                                text-align: right;
+                            }
+                            div {
+                                overflow: hidden;
+                                button[type="submit"] {
+                                    border: none;
+                                    font-family: 'fontello';
+                                    background: transparent;
+                                    outline: none;
+                                    color: #666;
+                                    &.actionDelete {
+                                        &:after {
+                                            content: '\e867';
+                                        }
+                                    }
+                                    &.actionEdit {
+                                        &:after {
+                                            content:'\e868';
+                                        }
+                                    }
+                                    &:first-child {
+                                        margin-right: 10px;
+                                    }
+                                }
+                                img {
+                                    /* Mask: */
+                                    background: #D8D8D8;
+                                    border-radius: 100px;
+                                    width: 64px;
+                                    height: 64px;
+                                    float: left;
+                                    margin-right: 18px;
+                                }
+                                h2 {
+                                    font-family: 'Gotham';
+                                    font-weight: 500;
+                                    font-size: 20px;
+                                    color: #5A5A5A;
+                                    line-height: 24px;
+                                    margin: 0;
+                                    max-height: 47px;
+                                    overflow: hidden;
+                                }
+                                span {
+                                    display: block;
+                                    font-weight: normal;
+                                    font-family: 'Gotham';
+                                    font-size: 14px;
+                                    color: #5A5A5A;
+                                    line-height: 17px;
+                                    max-height: 17px;
+                                    overflow: hidden;
+                                    margin-top: 5px;
+                                }
+                                div {
+                                    vertical-align: middle;
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    left: 97px;
+                                }
+                            }
+                            a {
+                                text-decoration: none;
+                                padding: 6px 17px;
+                                background-color: @highlight-text-color;
+                                color: #fff;
+                                font-family: 'Gotham';
+                                font-weight: normal;
+                                font-size: 14px;
+                                border-radius: 3px;
+                            }
+
+                        }
+                        &:nth-child(even) {
+                            background-color:#EEEEEE;
+                        }
+                    }
+                }
+            }
+            &.media_box {
+                tbody {
+                    tr {
+                        border: 1px solid #ccc;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+// Common styling for create and update views
+
+body.update_view > main,
+body.create_view > main {
+    //crispy tags uniForm classes
+    .content {
+        margin-top: 22px;
+        background-color: #fff;
+        padding: 19px 25px;
+        fieldset,ul,ol {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ctrlHolder {
+            padding-bottom: 1.2em;
+            label {
+                display: block;
+                font-family: "Gotham",sans-serif;
+                font-weight: normal;
+                font-size: 14px;
+                color: #9b9b9b;
+            }
+            input {
+                height: 45px;
+                width: 100%;
+            }
+            input, textarea, select {
+                box-sizing: border-box;
+                border: 1px solid rgb(204, 204, 204);
+                border-radius: 5px;
+                margin-top: 6px;
+                padding: 5px;
+                font-size: 16px;
+                outline: none;
+                resize:vertical;
+                color: #4A4A4A;
+            }
+            textarea {
+                width: 100%;
+            }
+            div.mce-fullscreen {
+                z-index: @level_fullscreen_richtext;
+            }
+            &.checkbox {
+                //rearrange lable and input for checkboxes
+                margin-top: 1.2em;
+                display: inline-block;
+                width: 120px;
+                input[type="checkbox"] {
+                    width: 20px;
+                    float: left;
+                    height: 20px;
+                    margin-top: 0;
+                    margin-right: 5px;
+                }
+                label {
+                    display: block;
+                }
+            }
+        }
+        .buttonHolder {
+            text-align: right;
+            input[type="submit"] {
+                width: 375px;
+                height: 46px;
+                background-color: #53AD29;
+                border: none;
+                border-radius: 3px;
+                font-family: 'Gotham';
+                font-weight: normal;
+                color: #fff;
+                outline: none;
+            }
+        }
+    }
+}

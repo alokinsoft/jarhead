@@ -1,0 +1,151 @@
+#image_uploader_plugin,#image_browse {
+    #img_upload_form {
+        #img_upload {
+            display: block;
+        }
+    }
+}
+
+.mooeditable-image-dialog {
+    .dialog-content {
+        padding: 0px;
+    }
+    .browse {
+        margin-top: 15px;
+        // vertical-align: middle;
+        float: left;
+        height: 31px;
+    }
+}
+
+.select_wrapper {
+    height: 470px;
+    width: 670px;
+    border-radius: 5px;
+    z-index: 102;
+    position: fixed;
+    top: 0px;
+    display: none;
+    overflow: hidden;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    box-shadow: 0px 0px 5px #CCC;
+    border-radius: 5px;
+    .view1,.view2 {
+        // background-color: #FFF;
+        height: 470px;
+    }
+    .select_content {
+        display: block;
+        width: 670-12px;
+        height: 460-110px;
+        overflow: auto;
+        background-color: #fff;
+        padding: 5px;
+        .thumbnail {
+            height: 105px;
+            width: 105px;
+            display: block;
+            cursor: pointer;
+            float: left;
+            margin: 10px;
+            border: 1px solid black;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            &:hover, &.selected {
+                border: 1px solid red;
+            }
+        }
+    }
+
+    .help {
+        height: 24px;
+        position: absolute;
+        bottom: 13px;
+        left: 15px;
+        .spinner {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            background: url('graphics/plugin/spinner_bg.gif') no-repeat;
+            float: left;
+            // margin: 33px 20px 13px;
+            display: none;
+            &.active {
+                display: block;
+            }
+        }
+        .help_text {
+            font-size: 12px;
+            line-height: 24px;
+        }
+    }
+
+    .dialog-cancel-button,
+    .dialog-ok-button,
+    .upload-cancel-button,
+    .button.save {
+        position: absolute;
+        bottom: 13px;
+        height: 31px;
+        width: 78px;
+        cursor: pointer;
+        border: 0px;
+        font-size: 0px;
+    }
+    .dialog-cancel-button,.upload-cancel-button {
+        right: 15px;
+        background: url('graphics/plugin/cancel_button.png') no-repeat left top;
+    }
+    .dialog-ok-button {
+        right: 80+15*2px;
+        background: url('graphics/plugin/insert_button.png') no-repeat left top;
+    }
+    .button.save {
+        right: 80+15*2px;
+        padding: 0px;
+        background: url(graphics/plugin/upload_button2.png) no-repeat left top;
+    }
+}
+
+.titlebar {
+    width: 100%;
+    height: 51px;
+    background-color: #EEE;
+    border-bottom: 1px solid #CCC;
+    .title {
+        float: left;
+        width: 200px;
+        border-radius: 5px 5px 0px 0px;
+        font-size: 24px;
+        line-height: 51px;
+        margin-left: 14px;
+    }
+    .button_upload {
+        display: block;
+        height: 31px;
+        width: 78px;
+        margin-right: 15px;
+        margin-top: 10px;
+        float: right;
+        background: url(graphics/plugin/upload_button2.png) no-repeat left top;
+    }
+}
+
+
+#select_window_overlay {
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 10;
+    top: 0px;
+    position: fixed;
+}
+
+.clear {
+    clear: both;
+}
+
+.hidden {
+    display: none;
+}

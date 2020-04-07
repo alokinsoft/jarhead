@@ -1,0 +1,22 @@
+syntax: glob
+
+*~
+*~~
+*.pyc
+*.orig
+uwsgi.pid
+**/*.orig
+.DS_Store
+*/uploads
+*.kate-swp
+uwsgi.conf
+*.directory
+web/test.py
+**/.DS_Store
+**/.directory
+media/cache/*
+local_settings.py
+_generated_media/*
+_generated_media_names.py
+*.egg-info
+.cache

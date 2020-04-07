@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+    
+try:
+    from django.core.cache import get_cache
+except ImportError:
+    from django.core.cache import caches as get_cache
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.conf import settings
+
+
+class FileCache(object):
+
+    def __init__(self):
+        self.backend = self.get_backend()
+
+    def get_backend(self):
+        return get_cache('file_resubmit')
+
+    def set(self, key, upload):
+        state = {
+            "name": upload.name,
+            "size": upload.size,
+            "content_type": upload.content_type,
+            "charset": upload.charset,
+            "content": upload.file.read()}
+        upload.file.seek(0)
+        self.backend.set(key, state)
+
+    def get(self, key, field_name):
+        upload = None
+        state = self.backend.get(key)
+        if state:
+            f = StringIO()
+            f.write(state["content"])
+            upload = InMemoryUploadedFile(
+                    file=f,
+                    field_name=field_name,
+                    name=state["name"],
+                    content_type=state["content_type"],
+                    size=state["size"],
+                    charset=state["charset"])
+            upload.file.seek(0)
+        return upload
+
+    def delete(self, key):
+        self.backend.delete(key)
